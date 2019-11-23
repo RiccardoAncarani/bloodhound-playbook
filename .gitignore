@@ -5,9 +5,15 @@
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
+lib/ 
 
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+.env
+figure/*.html
+queries/*.yaml
+*.ipynb 
+result.*
 
 # IPython
 profile_default/
