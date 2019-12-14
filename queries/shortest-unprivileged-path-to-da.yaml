@@ -1,7 +1,0 @@
-name: Shortest Path to Domain Admins
-description: |
-   The following query will return the shortest paths to the Domain Admin group.
-type: graph
-query: |
-   MATCH (g:Group) WHERE g.name =~ 'DOMAIN ADMINS.*' WITH g
-   MATCH p=shortestPath((u:User {hasspn: true})-[*..]->(g)) RETURN p
