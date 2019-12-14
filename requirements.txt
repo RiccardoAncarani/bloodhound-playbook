@@ -1,4 +1,5 @@
 -i https://pypi.org/simple
+pyyaml
 appnope==0.1.0 ; platform_system == 'Darwin'
 attrs==19.3.0
 backcall==0.1.0
