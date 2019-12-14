@@ -3,4 +3,4 @@ description: |
    Check all dangerous permissions assigned to the Domain Users group.
 type: graph
 query: |
-   MATCH p=(m:Group)-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]->(n:Computer) WHERE m.name STARTS WITH 'DOMAIN USERS' RETURN p 
+   MATCH p=(m:Group)-[r:Owns|:AddMember|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]->(n) WHERE m.name STARTS WITH 'DOMAIN USERS' RETURN p 
