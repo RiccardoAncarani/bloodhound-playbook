@@ -8,4 +8,4 @@ RUN pip install nbformat pyyaml
 
 COPY . .
 
-ENTRYPOINT python run-playbook.py && jupyter nbconvert --execute --to html result.ipynb --TemplateExporter.exclude_input=True && mv result.html output/
+ENTRYPOINT python run-playbook.py && jupyter nbconvert --execute --to html result.ipynb --TemplateExporter.exclude_input=True --ExecutePreprocessor.timeout=-1 && mv result.html output/

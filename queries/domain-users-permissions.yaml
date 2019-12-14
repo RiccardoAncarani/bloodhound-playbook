@@ -1,0 +1,6 @@
+name: Permissions Associated with Domain Users
+description: |
+   Check all dangerous permissions assigned to the Domain Users group.
+type: graph
+query: |
+   MATCH p=(m:Group)-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]->(n:Computer) WHERE m.name STARTS WITH 'DOMAIN USERS' RETURN p 

@@ -13,6 +13,7 @@ def get_all_queries(query_path):
 db_connection_template = """\
 from py2neo import Graph
 from scripts.vis import *
+from IPython.core.display import HTML
 
 g = Graph("bolt://{}:7687", auth=("{}", "{}"))
 options = {{"Group": "name", "Computer": "name", "GPO": "name", "Domain": "name", "User": "name", "OU": "name"}}"""
@@ -20,8 +21,9 @@ options = {{"Group": "name", "Computer": "name", "GPO": "name", "Domain": "name"
 graph_query_template = """\
 res = g.run(\"\"\"
 {}\"\"\")
+subg = res.to_subgraph()
 try:
-    draw_subgraph(subg, options)
+    display(draw_subgraph(subg, options))
 except:
     print("No results returned from the query.")"""
 
@@ -29,7 +31,7 @@ table_query_template = """\
 res = g.run(\"\"\"
 {}\"\"\").to_data_frame()
 if not res.empty:
-    print(res)
+    display(HTML(res.to_html()))
 else:
     print("No results returned from the query.")
 """

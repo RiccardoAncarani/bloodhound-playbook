@@ -1,0 +1,6 @@
+name: Find ACL Misconfiguration on GPO Objects
+description: |
+   Control over a GPO object can be delegated.
+type: graph
+query: | 
+   MATCH p=(u:User)-[r1:MemberOf*0..]->(g:Group)-[r:WriteOwner|:WriteDacl|:Owns|:Owner|:GenericWrite]->(m:GPO) WHERE NONE(node IN nodes(p) WHERE node.highvalue = true) RETURN p

@@ -1,0 +1,6 @@
+name: Map The Domain Trusts
+description: |
+   Maps all the domain trust within the current environment.
+type: graph
+query: |
+   MATCH p=()-[r:TrustedBy]->() RETURN p

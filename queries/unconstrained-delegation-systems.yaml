@@ -1,0 +1,6 @@
+name: Find All Unconstrained Delegation Systems
+description: |
+   Find all unconstrained delegation systems that are not domain controllers.
+type: graph
+query: |
+   MATCH (dc:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectsid ENDS WITH "516" WITH COLLECT(dc) as domainControllers MATCH p = (d:Domain)-[:Contains*1..]->(c:Computer {unconstraineddelegation:true}) WHERE NOT c in domainControllers RETURN c
