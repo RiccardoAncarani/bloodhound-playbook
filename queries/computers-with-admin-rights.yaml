@@ -1,0 +1,19 @@
+name: Computers with Admin Rights Over Other Computers
+type: table
+description: |
+   This query will identify all the computer accounts that have admin rights over another computer.
+   If results are not empty, it would be then possible to verify that SMB signing is disabled on the target machine.
+   Without SMB signing enforced, an attacker would be able to use the PrintSpooler bug to coerce the computer account with admin rights to
+   connect to a machine we control and then perform an NTLM relay attacks.
+   Query:
+   ```cypher
+   MATCH (c1:Computer)-[r:AdminTo]->(c2:Computer)
+   OPTIONAL MATCH (c1)-[:MemberOf*1..]->(g:Group)-[:AdminTo]->(c2)
+   RETURN c1.name,c2.name
+   ```
+
+
+query: |
+   MATCH (c1:Computer)-[r:AdminTo]->(c2:Computer)
+   OPTIONAL MATCH (c1)-[:MemberOf*1..]->(g:Group)-[:AdminTo]->(c2)
+   RETURN c1.name,c2.name

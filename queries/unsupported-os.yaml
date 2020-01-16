@@ -1,0 +1,12 @@
+name: Find Unsupported OS
+type: table
+description: |
+   Find all the computer accounts with an unsupported OS which may be prone to vulnerabilities.
+   Currently finds:
+   * Windows 2000
+   * Windows Server 2003
+   * Windows Server 2008
+   * Windows Vista
+   * Windows 7
+query: |
+   MATCH (H:Computer) WHERE H.operatingsystem =~ '(i?).*(2000|2003|2008|xp|vista|7).*' RETURN H.name, H.operatingsystem

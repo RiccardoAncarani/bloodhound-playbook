@@ -1,0 +1,18 @@
+name: Find all Cross-domain Relationships
+description: |
+   The following query will identify all the cross domain relationships, it would be possible to refine it 
+   to find specific relationship types like cross-domain sessions and so on:
+   ```cypher
+   MATCH (n)-[r]->(m)
+   WHERE NOT toUpper(n.domain)= toUpper(m.domain)
+   RETURN LABELS(n)[0], n.name, TYPE(r), LABELS(m)[0],m.name
+   ```
+   This query however does not cover sidHistory attributes in user objects, it is therefore recommended to manually run the following LDAP query manually:
+   ```
+   (sidHistory=*)
+   ```
+type: graph
+query: |
+   MATCH (n)-[r]->(m)
+   WHERE NOT toUpper(n.domain)= toUpper(m.domain)
+   RETURN LABELS(n)[0], n.name, TYPE(r), LABELS(m)[0],m.name

@@ -1,0 +1,21 @@
+name: Dangerous Permissions Associated to Members of 'Domain Users'
+type: table
+description: |
+   This query will identify all the dangerous permissions associated with members of the group "Domain Users":
+   ```cypher
+   MATCH (g:Group) WHERE g.name STARTS WITH 'DOMAIN USERS' WITH g
+   MATCH (c)<-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]-(u:User)-[:MemberOf]->(g) RETURN DISTINCT u.name As Username, collect( DISTINCT type(r)), COUNT(c), collect( DISTINCT(LABELS(c)[0]))
+   ```
+
+   If a more complete list is needed:
+   ```cypher
+   MATCH (g:Group) WHERE g.name STARTS WITH 'DOMAIN USERS' WITH g
+   MATCH (c)<-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]-(u:User)-[:MemberOf]->(g) RETURN u.name As Username,type(r) AS Relationship , c.name AS Object, LAbels(c) AS ObjectType
+   ```
+   The resulting table will have the following headers:
+
+   | Username | Type of relationship | Number of affected objects | Object types |
+   |----------|----------------------|----------------------------|--------------|
+query: |
+   MATCH (g:Group) WHERE g.name STARTS WITH 'DOMAIN USERS' WITH g
+   MATCH (c)<-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]-(u:User)-[:MemberOf]->(g) RETURN DISTINCT u.name As Username, collect( DISTINCT type(r)), COUNT(c), collect( DISTINCT(LABELS(c)[0]))

@@ -2,7 +2,10 @@ name: Find all Users with Kerberos Pre-Authentication Disabled
 description: |
    This query will identify all the users with Kerberos pre-authentication disabled.
    It will be possible to obtain an AS-REP ticket on their behalf and attempt to crack it.
-   To execute the attack: `Rubeus.exe asreproast`
+   To execute the attack: `Rubeus.exe asreproast`:
+   ```cypher
+   MATCH (u:User {dontreqpreauth: true}) RETURN DISTINCT u.name
+   ```
 type: table
 query: |
    MATCH (u:User {dontreqpreauth: true}) RETURN DISTINCT u.name
